@@ -13,7 +13,8 @@ import UIKit
 
 class MainViewController: UITableViewController {
     
-    let restaurantList = ["first", "second"]
+    
+    let places = [Place(name: "Сидрерия", location: "Saint-P", type: "Bar", image: "first")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,26 +26,26 @@ class MainViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return restaurantList.count
+        return places.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
-        cell.textLabel?.text = restaurantList[indexPath.row]
-        cell.imageView?.image = UIImage(named: restaurantList[indexPath.row])
-        cell.imageView?.layer.cornerRadius = 85 / 2
-        cell.imageView?.clipsToBounds = true //Скругление изображений
+        cell.nameLabel.text = places[indexPath.row].name
+        cell.locationLabel.text = places[indexPath.row].location
+        cell.typeLabel.text = places[indexPath.row].type
+        
+        cell.imageInTable.image = UIImage(named: places[indexPath.row].image)
+        cell.imageInTable.layer.cornerRadius = cell.imageInTable.frame.size.height / 2
+        cell.imageInTable.clipsToBounds = true //Скругление изображений
     
         return cell
     }
     
     // MARK: - Table View Delegation
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
-    }
 
     /*
     // MARK: - Navigation
@@ -56,4 +57,5 @@ class MainViewController: UITableViewController {
     }
     */
 
+    @IBAction func cancelAction(_ segue: UIStoryboardSegue) {}
 }
